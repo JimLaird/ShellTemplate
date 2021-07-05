@@ -1,0 +1,97 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="ShellTemplate.Views.LoginPage"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:vm="clr-namespace:ShellTemplate.ViewModels"
+    xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
+    Title="{Binding Title}"
+    x:DataType="vm:LoginModel"
+    BackgroundColor="{AppThemeBinding Dark={StaticResource WindowBackgroundColorDark},
+                                      Light={StaticResource WindowBackgroundColor}}"
+    Shell.FlyoutBehavior="Disabled"
+    Shell.NavBarIsVisible="False">
+
+    <ContentPage.BindingContext>
+        <vm:LoginModel />
+    </ContentPage.BindingContext>
+
+    <ContentPage.Content>
+        <StackLayout
+            Padding="40"
+            HorizontalOptions="FillAndExpand"
+            VerticalOptions="Center">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width=".15*" />
+                    <ColumnDefinition Width=".85*" />
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+                <Label
+                    Grid.Row="0"
+                    Grid.Column="0"
+                    FontFamily="FAS"
+                    Style="{StaticResource LabelLarge}"
+                    Text="{StaticResource IconAt}"
+                    VerticalTextAlignment="Center" />
+                <Entry
+                    x:Name="txtEmail"
+                    Grid.Row="0"
+                    Grid.Column="1"
+                    Placeholder="Enter Email"
+                    Style="{StaticResource BaseEntry}"
+                    Text="{Binding userEmail, Mode=TwoWay}">
+                    <Entry.Behaviors>
+                        <xct:EmailValidationBehavior
+                            Flags="ValidateOnValueChanging"
+                            InvalidStyle="{StaticResource InvalidEntryStyle}"
+                            IsValid="{Binding EmailValid}"
+                            ValidStyle="{StaticResource ValidEntryStyle}" />
+                    </Entry.Behaviors>
+                </Entry>
+                <Label
+                    Grid.Row="1"
+                    Grid.Column="0"
+                    FontFamily="FAS"
+                    Style="{StaticResource LabelLarge}"
+                    Text="{StaticResource IconUnlock}"
+                    VerticalTextAlignment="Center" />
+                <Entry
+                    x:Name="txtPass"
+                    Grid.Row="1"
+                    Grid.Column="1"
+                    IsPassword="True"
+                    Placeholder="Enter Password"
+                    Style="{StaticResource BaseEntry}"
+                    Text="{Binding userPass, Mode=TwoWay}" />
+                <Button
+                    x:Name="loginButton"
+                    Grid.Row="2"
+                    Grid.ColumnSpan="2"
+                    Command="{Binding LoginCommand}"
+                    IsEnabled="{Binding LoginAllowed}"
+                    Style="{StaticResource ButtonOutline}"
+                    Text="Login" />
+                <Label
+                    Grid.Row="3"
+                    Grid.ColumnSpan="2"
+                    HorizontalOptions="Center"
+                    Style="{StaticResource LabelSmall}"
+                    Text="Or Register Below" />
+                <Button
+                    x:Name="registerButton"
+                    Grid.Row="4"
+                    Grid.ColumnSpan="2"
+                    Command="{Binding RegisterCommand}"
+                    Style="{StaticResource ButtonOutline}"
+                    Text="Register" />
+            </Grid>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

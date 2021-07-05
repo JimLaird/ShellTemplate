@@ -1,0 +1,154 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="ShellTemplate.Views.ProfilePage"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:vm="clr-namespace:ShellTemplate.ViewModels"
+    xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
+    Title="{Binding Title}"
+    x:DataType="vm:ProfileModel"
+    BackgroundColor="{AppThemeBinding Dark={StaticResource WindowBackgroundColorDark},
+                                      Light={StaticResource WindowBackgroundColor}}">
+
+    <ContentPage.BindingContext>
+        <vm:ProfileModel />
+    </ContentPage.BindingContext>
+
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <xct:InvertedBoolConverter x:Key="InvertedBoolConverter" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
+    <ContentPage.Content>
+        <StackLayout
+            Padding="20"
+            HorizontalOptions="FillAndExpand"
+            VerticalOptions="Start">
+            <StackLayout
+                HorizontalOptions="FillAndExpand"
+                Orientation="Horizontal"
+                Spacing="40">
+                <xct:AvatarView
+                    ColorTheme="{x:Static xct:ColorTheme.Default}"
+                    HorizontalOptions="Start"
+                    Size="140"
+                    Source="{Binding userImage}"
+                    Text="{Binding Initials}" />
+                <Label
+                    HorizontalOptions="StartAndExpand"
+                    Style="{StaticResource LabelTitle}"
+                    Text="{Binding userName}"
+                    VerticalOptions="CenterAndExpand" />
+            </StackLayout>
+            <Grid Margin="0,30,0,0" RowSpacing="20">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width=".3*" />
+                    <ColumnDefinition Width=".7*" />
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+                <Label
+                    Grid.Row="0"
+                    Grid.Column="0"
+                    HorizontalOptions="Start"
+                    Style="{StaticResource LabelMedium}"
+                    Text="Registered:" />
+                <Label
+                    Grid.Row="0"
+                    Grid.Column="1"
+                    HorizontalOptions="StartAndExpand"
+                    Style="{StaticResource LabelMedium}"
+                    Text="{Binding userRegDate}" />
+                <Label
+                    Grid.Row="1"
+                    Grid.Column="0"
+                    FontFamily="FAS"
+                    Style="{StaticResource LabelLarge}"
+                    Text="{StaticResource IconAt}"
+                    VerticalTextAlignment="Center" />
+                <Entry
+                    Grid.Row="1"
+                    Grid.Column="1"
+                    HorizontalOptions="FillAndExpand"
+                    IsEnabled="{Binding EditMode}"
+                    Style="{StaticResource BaseEntry}"
+                    Text="{Binding userEmail, Mode=TwoWay}"
+                    VerticalOptions="Center" />
+                <Label
+                    Grid.Row="2"
+                    Grid.Column="0"
+                    FontFamily="FAS"
+                    Style="{StaticResource LabelLarge}"
+                    Text="{StaticResource IconUnlock}"
+                    VerticalTextAlignment="Center" />
+                <Entry
+                    Grid.Row="2"
+                    Grid.Column="1"
+                    HorizontalOptions="FillAndExpand"
+                    IsEnabled="{Binding EditMode}"
+                    IsPassword="True"
+                    Style="{StaticResource BaseEntry}"
+                    Text="{Binding userPass, Mode=TwoWay}"
+                    VerticalOptions="Center" />
+                <Label
+                    Grid.Row="3"
+                    Grid.Column="0"
+                    FontFamily="FAS"
+                    IsVisible="false"
+                    Style="{StaticResource LabelLarge}"
+                    Text="{StaticResource IconProfile}"
+                    VerticalTextAlignment="Center" />
+                <Label
+                    x:Name="lblImage"
+                    Grid.Row="3"
+                    Grid.Column="1"
+                    IsVisible="false"
+                    Style="{StaticResource LabelMedium}"
+                    Text="{Binding userImage}" />
+            </Grid>
+            <StackLayout
+                HorizontalOptions="CenterAndExpand"
+                Orientation="Horizontal"
+                Spacing="10">
+                <Button
+                    Command="{Binding SelectImageCommand}"
+                    IsVisible="{Binding EditMode}"
+                    Style="{StaticResource ButtonOutline}"
+                    Text="Select Image" />
+                <Button
+                    Command="{Binding TakeImageCommand}"
+                    IsVisible="{Binding EditMode}"
+                    Style="{StaticResource ButtonOutline}"
+                    Text="Take Image" />
+            </StackLayout>
+            <StackLayout
+                HorizontalOptions="CenterAndExpand"
+                Orientation="Horizontal"
+                Spacing="10">
+                <Button
+                    Command="{Binding EditCommand}"
+                    IsEnabled="{Binding EditMode, Converter={StaticResource InvertedBoolConverter}}"
+                    Style="{StaticResource ButtonOutline}"
+                    Text="Edit"
+                    WidthRequest="100" />
+                <Button
+                    Command="{Binding SaveCommand}"
+                    IsEnabled="{Binding EditMode}"
+                    Style="{StaticResource ButtonOutline}"
+                    Text="Save"
+                    WidthRequest="100" />
+                <Button
+                    Command="{Binding CancelCommand}"
+                    IsEnabled="{Binding EditMode}"
+                    Style="{StaticResource ButtonOutline}"
+                    Text="Cancel"
+                    WidthRequest="100" />
+            </StackLayout>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

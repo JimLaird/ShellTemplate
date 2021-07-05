@@ -1,0 +1,105 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="ShellTemplate.Views.RegistrationPage"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:vm="clr-namespace:ShellTemplate.ViewModels"
+    xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
+    Title="{Binding Title}"
+    x:DataType="vm:RegistrationModel"
+    BackgroundColor="{AppThemeBinding Dark={StaticResource WindowBackgroundColorDark},
+                                      Light={StaticResource WindowBackgroundColor}}"
+    Shell.FlyoutBehavior="Disabled"
+    Shell.NavBarIsVisible="False">
+
+    <ContentPage.BindingContext>
+        <vm:RegistrationModel />
+    </ContentPage.BindingContext>
+
+    <ContentPage.Content>
+        <StackLayout
+            Padding="40"
+            HorizontalOptions="FillAndExpand"
+            VerticalOptions="Center">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="0.15*" />
+                    <ColumnDefinition Width="0.85*" />
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+                <Label
+                    Grid.Row="0"
+                    Grid.Column="0"
+                    FontFamily="FAS"
+                    Style="{StaticResource LabelMedium}"
+                    Text="{StaticResource IconUser}"
+                    VerticalTextAlignment="Center" />
+                <Entry
+                    x:Name="txtUsername"
+                    Grid.Row="0"
+                    Grid.Column="1"
+                    Placeholder="Enter Name"
+                    Style="{StaticResource BaseEntry}"
+                    Text="{Binding userName, Mode=TwoWay}" />
+                <Label
+                    Grid.Row="1"
+                    Grid.Column="0"
+                    FontFamily="FAS"
+                    Style="{StaticResource LabelMedium}"
+                    Text="{StaticResource IconAt}"
+                    VerticalTextAlignment="Center" />
+                <Entry
+                    x:Name="txtEmail"
+                    Grid.Row="1"
+                    Grid.Column="1"
+                    Placeholder="Enter Email"
+                    Style="{StaticResource BaseEntry}"
+                    Text="{Binding userEmail, Mode=TwoWay}">
+                    <Entry.Behaviors>
+                        <xct:EmailValidationBehavior
+                            Flags="ValidateOnValueChanging"
+                            InvalidStyle="{StaticResource InvalidEntryStyle}"
+                            IsValid="{Binding EmailValid}"
+                            ValidStyle="{StaticResource ValidEntryStyle}" />
+                    </Entry.Behaviors>
+                </Entry>
+                <Label
+                    Grid.Row="2"
+                    Grid.Column="0"
+                    FontFamily="FAS"
+                    Style="{StaticResource LabelMedium}"
+                    Text="{StaticResource IconUnlock}"
+                    VerticalTextAlignment="Center" />
+                <Entry
+                    x:Name="txtPassword"
+                    Grid.Row="2"
+                    Grid.Column="1"
+                    IsPassword="True"
+                    Placeholder="Enter Password"
+                    Style="{StaticResource BaseEntry}"
+                    Text="{Binding userPass, Mode=TwoWay}" />
+                <Button
+                    x:Name="registrationButton"
+                    Grid.Row="3"
+                    Grid.ColumnSpan="2"
+                    Command="{Binding RegisterCommand}"
+                    IsEnabled="{Binding RegisterAllowed}"
+                    Style="{StaticResource ButtonOutline}"
+                    Text="Register" />
+                <Button
+                    x:Name="cancelButton"
+                    Grid.Row="4"
+                    Grid.ColumnSpan="2"
+                    Command="{Binding CancelCommand}"
+                    Style="{StaticResource ButtonOutline}"
+                    Text="Cancel" />
+            </Grid>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>
