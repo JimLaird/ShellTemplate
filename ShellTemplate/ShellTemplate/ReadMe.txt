@@ -42,7 +42,7 @@ MVVM
 ----
 This template uses the MVVM built into xamarin, feel free to use the MVVM framework of your choice
 I like the built in stuff as it has simple URI based navigation though.  If you add more pages to your
-app, then remember to add them to AppShel.xaml.cs under Register Routes section
+app, then remember to add them to AppShell.xaml.cs under Register Routes section
 -------------------------------------------------------------------------------
 
 
